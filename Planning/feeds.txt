@@ -1,0 +1,8 @@
+-tags "#privacy" -order 500 http://www.reddit.com/r/privacy/.rss
+-tags "#technology" -order 500 http://www.reddit.com/r/technology/.rss
+-tags "#networksecurity" -order 500 http://www.reddit.com/r/netsec/.rss
+-tags "#electronics" -order 500 http://revision3.com/tbhs/itunes/mp4-hd30
+-tags "#fail" -order 500 http://hackaday.com/category/hackaday-columns/fail-of-the-week-hackaday-columns/feed/
+-tags "#arm" -order 500 http://hackaday.com/category/arm-2/feed/
+-tags "#arduino" -order 500 http://hackaday.com/category/arduino-hacks/rss
+-tags "#privacy" -order 500 http://feeds.feedburner.com/IrongeeksSecuritySite?format=xml

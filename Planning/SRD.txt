@@ -1,0 +1,52 @@
+SOFTWARE REQUIREMENTS DOCUMENT
+
+Defined in INI file
+            - Application Keys
+                - Bitly Username
+                - Bitly Access Key
+                - Twitter Key
+                - Twitter Secret
+                - Twitter Credential File Path
+            - Experation Delta
+            - Default Tweet Window
+                - StartTime
+                - Duration
+            - Tweet Count
+            - Joke Delta
+
+Feed Reader - will push data into a queue and stamp the atom with a expiration date.
+            - Only 2 priorities. Send imediat, or send on schedual
+            - Will record enqueued atom ids in DB
+            - Atom status is updated
+
+Scheduler   - will pull from atom queue
+            - If the atom is expired, it will be dropped and never sent.
+            - if the atom is marked "send imediat", it will be scheduled for a past date.
+            - All other atoms will be assigned a send date.
+                - Send dates are determened 1 of 2 ways. First find the tweet window
+                  1) Bitly data shows a clear window of high activty. 
+                  2) No clear window can be defined, fall back to configured window.
+                - TWEET COUNT will be evently destributed in the first 75% of the tweet window.
+                - Stamp a "Send_after" timestamp onto the atom to apply the schedule
+            - After schedule is applied, the atom will be enqueued to the format queue and the atom sched_dts will be written
+            - Atom status is updated
+
+formatter   - will pull from the format queue and generate a bit.ly short link and compose the tweet message.
+            - That data will be enqueued into the tweet queue along with it's schedule stamp
+            - Atom status is updated
+            - Record bitly short address in the atom table
+
+Tweet       - Will pull from the tweet queue and post the tweet to twitter
+            - after complete the content will be recorded in the db and flagged as sent
+            - Atom status is updated
+            - After [joke_delta] tweets have been sent, a joke will be tweeted.
+
+
+Thread Management
+            - Thread manamagement should be configured via an array
+            - thread shutdown will occur once the threads are clear
+            - use signal to trip the events to force shutdown of threads.
+            - Use the basic threading construct. 
+            - Use Events to notify exit to consumers. 
+            - Some consuers will need to be producers. in this case, 2 events will be needed.
+

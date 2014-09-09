@@ -1,0 +1,33 @@
+DATABASE REQUIREMENTS DOCUMENT
+
+- Atom Log
+  ID                < The application ID for ref
+  ATOM_ID           < The application ID for the Atom List
+  UNIQ_ID           < The unique field to identify the atom
+  RECV_DTS          < The unix timestamp the atom was recieved
+  SCHED_DTS         < The scheduled unix timestamp for the atom to be tweeted
+  BITLY             < The bitly associated with this atom.
+  STATUS (RECIEVED, SCHEDULING, FORMATING, WAIT, DROPPED) < The status of this atom as it goes though the queus
+
+- Atom List
+  ID                < Application ID to ref
+  NAME              < The application name of the feed
+  URL               < The URL to the RSS Feed
+  ORDER             < The order to scan for new atoms in each cycle.
+  ENABLED           < If the feed is enaled
+
+- Jokes
+  ID                < The application ID to ref
+  BODY              < The pre-formatted body of the joke
+  SENT              < Flag if this joke has been used or not
+
+- Tweets
+  ID                < The application ID for ref
+  TYPE (JOKE, ATOM) < The source table for this tweet. ie: joke or atom
+  SOURCE_ID         < The application ID of the record in the joke or atom table.
+  BODY              < The actual body that was tweeted
+  SENT_DTS          < The unix timestamp the tweet was sent.
+  
+- Schedule (Not sure i need this yet)
+  ???
+
